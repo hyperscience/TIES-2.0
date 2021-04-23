@@ -38,7 +38,9 @@ class BasicModel(ModelInterface):
 
         tf_records_dir_path = gconfig.get_config_param("tf_records_dir_path", "str")
         tf_record_paths = [f'{tf_records_dir_path}/{fn}' for fn in os.listdir(tf_records_path)]
-        random.shuffle(tf_record_paths)
+
+        rng_seed = 88
+        random.Random(rng_seed).shuffle(tf_record_paths)
 
         train_files, other_files = split_array(tf_record_paths, 0.5)
         val_files, test_files = split_array(other_files, 0.5)
