@@ -37,11 +37,6 @@ class BasicModel(ModelInterface):
             gconfig.set_config_param("samples_per_vertex", str(self.max_vertices))
 
         tf_records_dir_path = gconfig.get_config_param("tf_records_dir_path", "str")
-        S3_PATH_TO_DATASET = 's3://hs-ml-data/experiments/iliya.zhechev/data/ties/'
-
-        if not os.path.exists(tf_records_dir_path):
-            os.system(f'aws s3 sync {S3_PATH_TO_DATASET} {tf_records_dir_path}')
-
         tf_record_paths = [f'{tf_records_dir_path}/{fn}' for fn in os.listdir(tf_records_path)]
         random.shuffle(tf_record_paths)
 
